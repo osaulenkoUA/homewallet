@@ -15,3 +15,13 @@ http://localhost:3004/category/addCategory
 "category": "Sasha",
 "description": ["Аптека","Інше"]
 }
+
+POST
+http://localhost:3004/userFinance/addOperation
+{
+category: {type: String, required: true},
+description: {type: String, required: true},
+amount: {type: Number, required: true},
+balance: {type: Number, required: false, default: 0},
+date: {type: String, required: false}
+}
