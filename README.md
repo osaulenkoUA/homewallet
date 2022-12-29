@@ -17,7 +17,7 @@ http://localhost:3004/category/addCategory
 }
 
 POST
-http://localhost:3004/userFinance/addOperation
+http://localhost:3004/finances/addOperation
 {
 category: {type: String, required: true},
 description: {type: String, required: true},
@@ -25,3 +25,6 @@ amount: {type: Number, required: true},
 balance: {type: Number, required: false, default: 0},
 date: {type: String, required: false}
 }
+
+GET
+http://localhost:3004/finances/getOperation

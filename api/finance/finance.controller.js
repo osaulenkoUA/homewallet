@@ -12,6 +12,18 @@ async function addTransaction(req, res, next) {
     }
 }
 
+async function getTransaction(req, res, next) {
+    try {
+
+        const tr = await financeModel.find();
+        return res.status(200).json(tr);
+    } catch (err) {
+        next(err);
+    }
+}
+
+
 module.exports = {
     addTransaction,
+    getTransaction
 };
