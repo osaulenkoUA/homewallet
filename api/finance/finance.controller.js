@@ -6,9 +6,10 @@ async function addTransaction(req, res, next) {
     try {
         req.body.date = date.format(new Date(), 'DD.MM.YYYY');
         const tr = await financeModel.create(req.body);
+        console.log(tr)
         return res.status(201).json(tr);
     } catch (err) {
-        next(err);
+        return res.status(400).json({erros:err.message,status:400})
     }
 }
 
