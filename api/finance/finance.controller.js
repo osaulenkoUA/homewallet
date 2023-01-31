@@ -2,7 +2,7 @@
 const date = require('date-and-time');
 const financeModel = require('./finance.model.js');
 
-async function addTransaction(req, res, next) {
+async function addTransaction(req, res) {
     try {
         req.body.date = date.format(new Date(), 'DD.MM.YYYY');
         const tr = await financeModel.create(req.body);
@@ -14,16 +14,13 @@ async function addTransaction(req, res, next) {
 }
 
 
-async function getTransactionByMonth(req, res, next) {
+async function getTransactionByMonth(req, res) {
     try {
         const dateM=req.body.date;
-        console.log(dateM)
-        const month = date.transform(dateM, 'DD.MM.YYYY', 'MMMM');
-        // const tr = await financeModel.find();
-        // req.body.date = date.format(new Date(), 'DD.MM.YYYY');
-        // const tr = await financeModel.create(req.body);
-        // console.log(tr)
-        return res.status(200).json(month);
+        const tr = await financeModel.find();
+        const foo = tr.filter(el=>el.date.split('.')[1] === dateM)
+
+        return res.status(200).json(foo);
     } catch (err) {
         return res.status(400).json({erros:err.message,status:400})
     }
