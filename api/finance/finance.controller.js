@@ -41,7 +41,7 @@ async function updateSomeFields(req, res, next) {
     try {
         await financeModel.updateFields(req.body)
         const updatedItem = await financeModel.findById(req.body.id)
-        return res.status(204).json(updatedItem);
+        return res.status(202).json(updatedItem);
     } catch (err) {
         next(err);
     }
