@@ -9,20 +9,20 @@ async function addTransaction(req, res) {
         console.log(tr)
         return res.status(201).json(tr);
     } catch (err) {
-        return res.status(400).json({erros:err.message,status:400})
+        return res.status(400).json({erros: err.message, status: 400})
     }
 }
 
 
 async function getTransactionByMonth(req, res) {
     try {
-        const dateM=req.body.date;
+        const dateM = req.body.date;
         const tr = await financeModel.find();
-        const foo = tr.filter(el=>el.date.split('.')[1] === dateM)
+        const foo = tr.filter(el => el.date.split('.')[1] === dateM)
 
         return res.status(200).json(foo);
     } catch (err) {
-        return res.status(400).json({erros:err.message,status:400})
+        return res.status(400).json({erros: err.message, status: 400})
     }
 }
 
@@ -37,9 +37,20 @@ async function getTransaction(req, res, next) {
     }
 }
 
+async function updateSomeFields(req, res, next) {
+    try {
+        await financeModel.updateFields(req.body)
+        const updatedItem = await financeModel.findById(req.body.id)
+        return res.status(204).json(updatedItem);
+    } catch (err) {
+        next(err);
+    }
+}
+
 
 module.exports = {
     addTransaction,
     getTransaction,
-    getTransactionByMonth
+    getTransactionByMonth,
+    updateSomeFields
 };

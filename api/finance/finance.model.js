@@ -9,6 +9,13 @@ const financeSchema = new Schema({
     date: {type: String, required: false}
 });
 
+
+
+async function updateFields(data) {
+    return this.findByIdAndUpdate(data.id, data);
+}
+
+financeSchema.statics.updateFields=updateFields
 const financeModel = mongoose.model('Finance', financeSchema);
 
 module.exports = financeModel;

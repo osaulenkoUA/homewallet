@@ -28,3 +28,16 @@ date: {type: String, required: false}
 
 GET
 http://localhost:3004/finances/getOperation
+
+POST
+http://localhost:3004/finances/getOperationdByMonth
+{
+date:'02'
+}
+
+PUT
+http://localhost:3004/finances/updateFields
+{
+"id":string
+...{all fields}
+}
