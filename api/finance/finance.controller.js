@@ -1,4 +1,3 @@
-// const axios = require('axios');
 const date = require('date-and-time');
 const financeModel = require('./finance.model.js');
 
@@ -6,7 +5,6 @@ async function addTransaction(req, res) {
     try {
         req.body.date = date.format(new Date(), 'DD.MM.YYYY');
         const tr = await financeModel.create(req.body);
-        console.log(tr)
         return res.status(201).json(tr);
     } catch (err) {
         return res.status(400).json({erros: err.message, status: 400})
