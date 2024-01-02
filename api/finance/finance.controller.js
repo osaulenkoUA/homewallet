@@ -15,10 +15,12 @@ async function addTransaction(req, res) {
 async function getTransactionByMonth(req, res) {
     try {
         const dateM = req.body.date;
+        const year = req.body.year;
         const tr = await financeModel.find();
-        const foo = tr.filter(el => el.date.split('.')[1] === dateM)
 
-        return res.status(200).json(foo);
+        const getTrbyMonth = tr.filter(el => (el.date.split('.')[1] === dateM && el.date.split('.')[2] === year))
+
+        return res.status(200).json(getTrbyMonth);
     } catch (err) {
         return res.status(400).json({erros: err.message, status: 400})
     }
