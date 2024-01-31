@@ -26,7 +26,8 @@ module.exports = class ContactServer {
   }
   initMiddlewares() {
     this.server.use(express.json());
-    this.server.use(express.urlencoded());
+    // this.server.use(express.urlencoded());
+    this.server.use(express.urlencoded({ extended: true }));
     this.server.use(cors());
   }
   initRoutes() {

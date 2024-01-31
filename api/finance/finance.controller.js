@@ -12,17 +12,28 @@ async function addTransaction(req, res) {
 }
 
 
+
 async function getTransactionByMonth(req, res) {
     try {
-        const dateM = req.body.date;
-        const year = req.body.year;
-        const tr = await financeModel.find();
+        const { date, year } = req.body;
 
-        const getTrbyMonth = tr.filter(el => (el.date.split('.')[1] === dateM && el.date.split('.')[2] === year))
+        const transactions = await financeModel.aggregate([
+            {
+                $match: {
+                    $expr: {
+                        $and: [
+                            { $eq: [{ $month: { $toDate: "$date" } }, parseInt(date)] },
+                            { $eq: [{ $year: { $toDate: "$date" } }, parseInt(year)] }
+                        ]
+                    }
+                }
+            }
+        ]);
 
-        return res.status(200).json(getTrbyMonth);
+        return res.status(200).json(transactions);
     } catch (err) {
-        return res.status(400).json({erros: err.message, status: 400})
+        console.error("Error in getTransactionByMonth:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
